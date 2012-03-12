@@ -1,0 +1,20 @@
+<% @title = @static.title %>
+<h1><%= @static.title %></h1>
+<%= render :partial => 'statics/content' %>
+
+<ul class="categories-list">
+  <% @categories.each do |category| %>
+      <li>
+        <%= image_tag category.image.url(:list), :onClick => "window.location = '#{category_sub_categories_path(category)}';" %>
+        <h2><%= link_to category.title, category_sub_categories_path(category) %></h2>
+        <p>
+          <%= raw category.description %>
+        </p>
+        <% if signed_in? %>
+            <p><%= link_to t('actions.edit'), edit_category_path(category) %>
+              <%= link_to t('actions.destroy'), category, :confirm => t('actions.are_you_sure'), :method => :delete %></p>
+        <% end %>
+      </li>
+
+  <% end %>
+</ul>

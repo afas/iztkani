@@ -1,0 +1,15 @@
+Поступил новый отзыв №<%= @feedback.id %>
+
+<br/><br/>
+
+<b><%= t('activerecord.attributes.feedback.name') %>:</b> <%= @feedback.name %><br/>
+<b><%= t('activerecord.attributes.feedback.email') %>:</b> <%= link_to @feedback.email, "mailto:#{@feedback.email}" %><br/>
+<b><%= t('activerecord.attributes.feedback.phone') %>:</b> <%= @feedback.phone %><br/>
+<b><%= t('activerecord.attributes.feedback.message') %>:</b><br/>
+<%= @feedback.message %>
+
+<br/><br/>
+
+Отзыв можно просмотреть по ссылке:<br/>
+<% full_url = Iztkani::Application.config.action_mailer.default_url_options[:host] + feedback_path(@feedback) %>
+<%= link_to full_url, full_url %>

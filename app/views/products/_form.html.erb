@@ -1,0 +1,53 @@
+<%= form_for([@category, @sub_category, @product], :html => {:multipart => true}) do |f| %>
+    <%= render 'layouts/error_messages', :target => @product %>
+
+    <div class="field">
+      <b>Категория</b>: <%= @category.title %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :sub_category_id, :value => @sub_category.id %>
+      <b>Подкатегория</b>: <%= @sub_category.title %>
+    </div>
+
+    <div class="field">
+      <%= f.label :name, t('activerecord.attributes.product.name') %>
+      <br/>
+      <%= f.text_field :name, :size => 52 %>
+    </div>
+    <div class="field">
+      <%= f.label :description, t('activerecord.attributes.product.description') %>
+      <br/>
+      <%= f.text_area :description, :rows => 5 %>
+    </div>
+    <div class="field">
+      <%= f.label :price, t('activerecord.attributes.product.price') %>
+      <br/>
+      <%= f.text_field :price %>
+    </div>
+    <div class="field">
+      <%= f.label :image, t('activerecord.attributes.product.image') %>
+      <br/>
+      <%= f.file_field :image %>
+    </div>
+    <div class="field">
+      <%= f.label "Фотогалерея продукта" %>
+      <br/>
+      <% if !@product.product_images.nil? %>
+          <% @product.product_images.each do |product_image| %>
+              <p id="product_image_<%= product_image.id %>">
+                <%= image_tag product_image.image.url(:preview) %>
+                <%# if can?(:destroy, work_image) %>
+                <%= link_to t('actions.destroy'),
+                            product_image_path(:id => product_image.id, :authenticity_token => form_authenticity_token),
+                            :confirm => t('actions.are_you_sure'), :method => :delete, :remote => true %>
+                <%# end %>
+              </p>
+          <% end %>
+      <% end %>
+      <div><%= f.file_field :product_images, :multiple => true %></div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

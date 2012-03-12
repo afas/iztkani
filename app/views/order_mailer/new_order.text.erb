@@ -1,0 +1,19 @@
+Поступил новый заказ №<%= @order.id %> на сумму <%= product_price(@order.total_price) %>
+
+Заказано:
+<% @order.line_items.each do |item| %>
+<%= item.product.name %>		<%= item.quantity %>		<%= product_price(item.total_price) %>
+<% end %>
+
+
+<%= t('activerecord.attributes.order.client_name') %>: <%= @order.name %>
+<%= t('activerecord.attributes.order.client_phone') %>: <%= @order.phone %>
+<%= t('activerecord.attributes.order.client_email') %>: <%= @order.email %>
+<%= t('activerecord.attributes.order.address') %>: <%= @order.address %>
+<% if @order.description? %>
+<%= t('activerecord.attributes.order.description') %>:
+<%= @order.description %>
+<% end %>
+
+Заказ можно просмотреть по ссылке:
+http://<%= Iztkani::Application.config.action_mailer.default_url_options[:host] %><%= order_path(@order) %>

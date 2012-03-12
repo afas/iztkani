@@ -1,0 +1,29 @@
+<h1>Редактирование администратора</h1>
+
+<%= form_for(@user, :url => users_update_path) do |f| %>
+    <%= render 'layouts/error_messages', :target => @user %>
+
+  <div class="field">
+    <%= f.label :username, t('activerecord.attributes.user.username') %><br />
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :email, t('activerecord.attributes.user.email') %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, t('activerecord.attributes.user.phone') %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :password, t('activerecord.attributes.user.password') %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, t('activerecord.attributes.user.password_confirmation') %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

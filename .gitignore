@@ -1,0 +1,17 @@
+.bundle
+.bundle/*
+db/*.sqlite3
+db/schema.rb
+db/seeds.rb
+log/*.log
+tmp/**/*
+public/category/*
+public/sub_category/*
+public/files/*
+public/products/*
+public/paper/*
+public/paper_images/*
+public/product_images/*
+.idea
+.idea/*
+Gemfile.lock

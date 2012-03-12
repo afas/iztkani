@@ -1,0 +1,27 @@
+<%= form_for([@category, @sub_category], :html => {:multipart => true}) do |f| %>
+    <%= render 'layouts/error_messages', :target => @sub_category %>
+
+    <div class="field">
+      <%= f.hidden_field :category_id, :value => @category.id if @sub_category.new_record? %>
+      <b>Категория</b>: <%= @category.title %>
+    </div>
+    <div class="field">
+      <%= f.label :title %>
+      <br/>
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :description, t('activerecord.attributes.sub_category.description') %>
+      <br/>
+      <%= textile_editor :sub_category, :description, :rows => 5 %>
+    </div>
+    <div class="field">
+      <%= f.label :image, t('activerecord.attributes.sub_category.image') %>
+      <br/>
+      <%= f.file_field :image %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+<%= raw textile_editor_initialize(:framework => :jquery) %>

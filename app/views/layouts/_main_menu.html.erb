@@ -1,0 +1,20 @@
+<ul class="major">
+  <% main_menu_items.each do |name, path, categories| %>
+      <li class="ancestor">
+        <%= link_to name, path, :class => 'ancestor-link' %>
+
+        <% if categories %>
+            <div class="popover clearfix" id="popover">
+              <ul>
+                <% categories.each do |cname, cpath| %>
+                    <li><%= link_to cname, cpath, :class => 'ancestor-link' %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+      </li>
+  <% end %>
+  <li class="ancestor">
+    <%= link_to "Корзина", "#cart", :class => 'ancestor-link', :onClick => "cartHideShow();" %>
+  </li>
+</ul>

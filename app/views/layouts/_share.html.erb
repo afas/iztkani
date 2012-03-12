@@ -1,0 +1,26 @@
+<ul class="share-buttons">
+  <!--<li><a href="#"><img src="/images/heart.png" alt=""></a></li>-->
+  <li>
+    <a target="_blank" href="http://www.facebook.com/sharer.php?u=http://iz-tkani.ru<%= request.request_uri %>" rel="nofollow"><img src="/images/fb.png" alt="facebook.com" title="Поделиться в Facebook"></a>
+  </li>
+  <li>
+    <a target="_blank" href="http://www.livejournal.com/update.bml?event=http://iz-tkani.ru<%= request.request_uri %>&amp;subject=<%= @title %>" rel="nofollow"><img src="/images/lj.png" alt="livejournal.ru" title="Опубликовать в LiveJournal"></a>
+  </li>
+  <li>
+    <a target="_blank" href="http://twitter.com/home/?status=<%= @title %>: http://iz-tkani.ru<%= request.request_uri %>" rel="nofollow"><img src="/images/tw.png" alt="twitter.com" title="Добавить в Twitter"></a>
+  </li>
+  <li>
+    <a target="_blank" href="http://vkontakte.ru/share.php?url=http://iz-tkani.ru<%= request.request_uri %>&amp;title=<%= @title %>" rel="nofollow"><img src="/images/vk.png" alt="vkontakte.ru" title="Поделиться В Контакте"></a>
+  </li>
+  <li class="like-wrap">
+    <div>
+      <span class="like-text">Мне нравится</span>
+      <%= form_for @like, :remote => true do |f| %>
+          <%= f.hidden_field :count, :value => @like.count %>
+          <%= f.hidden_field :url, :value => request.request_uri %>
+          <%= f.submit %>
+      <% end %>
+      <span class="count"><%= @like.count %></span>
+    </div>
+  </li>
+</ul>

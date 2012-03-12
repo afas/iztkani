@@ -1,0 +1,22 @@
+<% title(@static.title) %>
+
+<h1><%= @static.title %></h1>
+
+<% if signed_in? %>
+    <%= link_to t('actions.edit_text'), edit_static_path(@static) %> / <%= link_to t('actions.new', :model => t('activerecord.models.paper')), new_paper_path %>
+<% end %>
+
+<%= raw @static.content_text %>
+<br/>
+
+<% @papers.each do |paper| %>
+    <div class="post-list">
+      <%= image_tag paper.preview.url(:list), :class => 'paper-image', :onClick => "window.location = '/papers/#{paper.id}';" %>
+      <h2><%= link_to paper.title, paper %></h2>
+      <i>
+        <small><%= localize(paper.created_at, :format => :long) %></small>
+      </i><br/>
+      <%= paper.short_description %>
+      <br/>
+    </div>
+<% end %>

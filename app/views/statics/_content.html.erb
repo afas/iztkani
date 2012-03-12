@@ -1,0 +1,31 @@
+<% title(@static.title) %>
+
+<% if signed_in? %>
+    <%= link_to t('actions.edit_text'), edit_static_path(@static) %>
+    <%= if !@categories.nil?
+            link_to t('actions.new', :model => t('activerecord.models.category')), new_category_path
+        end %>
+
+<% end %>
+
+<%= render :partial => 'layouts/share' %>
+
+<p class="static-text">
+
+  <% if @static.image_file_name? %>
+      <%= image_tag @static.image.url(:default) %>
+  <% end %>
+
+
+  <%= raw @static.content_text %>
+</p>
+
+<% if @static.has_a_file && @static.file_file_name? %>
+    <br/>
+    <% link_title = @static.file_link_title.blank? ? 'Скачать файл' : @static.file_link_title %>
+    <%= link_to link_title, @static.file.url %>
+<% end %>
+
+<% if @static.url_part == 'contacts' %>
+    <%#= link_to 'Обратная связь', new_feedback_path %><br/>
+<% end %>

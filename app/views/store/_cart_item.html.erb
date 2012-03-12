@@ -1,0 +1,15 @@
+<% if cart_item == @current_item %>
+  <tr id="current_item" class="cart_item">
+<% else %>
+  <tr class="cart_item">
+<% end %>
+  <td><nobr><%= cart_item.quantity %>&nbsp;&times;&nbsp;</nobr></td>
+  <td width="50%"><%= link_to cart_item.title, cart_item.url %></td>
+  <td align="right"><nobr><%= product_short_price(cart_item.price) %></nobr></td>
+  <td>
+    <%= button_to '+', add_to_cart_path(:id => cart_item.product), :remote => true %>
+  </td>
+  <td>
+    <%= button_to '-', remove_from_cart_path(:id => cart_item.product), :remote => true %>
+  </td>
+</tr>

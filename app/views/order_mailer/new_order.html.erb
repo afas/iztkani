@@ -1,0 +1,36 @@
+Поступил новый заказ №<%= @order.id %> на сумму <%= product_price(@order.total_price) %>
+
+<br/><br/>
+
+Заказано:
+<table>
+  <tr>
+    <th>Название</th>
+    <th>Количество</th>
+    <th>Общая цена</th>
+  </tr>
+  <% @order.line_items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td align="center"><%= item.quantity %></td>
+        <td align="center"><%= product_price(item.total_price) %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br/>
+
+<b><%= t('activerecord.attributes.order.client_name') %>:</b> <%= @order.name %><br/>
+<b><%= t('activerecord.attributes.order.client_phone') %>:</b> <%= @order.phone %><br/>
+<b><%= t('activerecord.attributes.order.client_email') %>:</b> <%= link_to @order.email, "mailto:#{@order.email}" %><br/>
+<b><%= t('activerecord.attributes.order.address') %>:</b> <%= @order.address %><br/>
+<% if @order.description? %>
+    <b><%= t('activerecord.attributes.order.description') %>:</b><br/>
+    <%= @order.description %>
+<% end %>
+
+<br/><br/>
+
+Заказ можно просмотреть по ссылке:<br/>
+<% full_url = Iztkani::Application.config.action_mailer.default_url_options[:host] + order_path(@order) %>
+<%= link_to full_url, full_url %>

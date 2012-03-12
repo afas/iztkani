@@ -1,0 +1,83 @@
+<% title(t('welcome.index.title')) %>
+
+<!--<div id="logo">-->
+  <!--<img src="/images/logo.png" width="425" height="152" alt="Black-sheep.ru">-->
+<!--</div>-->
+
+<%# @backgrounds.each do |background| %>
+    <%#= mosaic_div(background) %>
+<%# end %>
+
+<div id="projects" class="projects">
+  <% @projects.each_with_index do |project, i| %>
+      <%= link_to(image_tag(project.logo.url(:preview),
+                            :id => "project_#{project.id}",
+                            :class => "project_item counter#{i}",
+                            :top => project.top,
+                            :left => project.left,
+                            :alt => project.name,
+                            :optima_width => project.optima_width,
+                            :optima_height => project.optima_height,
+                            :normalized_visits => project.normalized_visits,
+                            :number => i), project, :remote => true) %>
+  <% end %>
+</div>
+
+<div id="viewer" class="centralized">
+  <div class="page">
+    <div class="controls"><a href="#"><%= t('welcome.index.close') %></a></div>
+    <div id="content"></div>
+  </div>
+</div>
+
+<script>
+    var general_delay = 500;
+
+    <% if @default_background %>
+        function showDefaultBackground() {
+            <%= "var default_background_id = '#mosaic_#{@default_background.id}'" %>
+            $(default_background_id).show();
+
+            <%= "var default_cols_and_rows = bgBuildColsAndRows(default_background_id, #{@default_background.x}, #{@default_background.y});" %>
+            bgShowMatrix(default_cols_and_rows['cols']);
+        }
+    <% end %>
+
+    function showAnotherContent() {
+        $('#menu').fadeTo(1000, 1);
+        $('.projects').show();
+
+        showProjects();
+
+        <% if can?(:update_position, Project) %>
+            draggableProjects();
+        <% end %>
+
+        $(window).resize(function() {
+            showProjects();
+        });
+    }
+
+    <% @backgrounds.each do |background| %>
+        <%= "bgCentralizing('#mosaic_#{background.id}', #{background.width}, #{background.height});" %>
+        <%= "var cols_and_rows_#{background.id} = null;" %>
+    <% end %>
+
+    $(document).ready(function() {
+        <% if @default_background %>
+            setTimeout("showDefaultBackground()", general_delay);
+        <% end %>
+
+        setTimeout("showAnotherContent()", general_delay + 2500);
+
+        <% @backgrounds.each do |background| %>
+            <%= "$('#mosaic_#{background.id}').show();" %>
+            <%= "cols_and_rows_#{background.id} = bgBuildColsAndRows('#mosaic_#{background.id}', #{background.x}, #{background.y});" %>
+        <% end %>
+
+        <% @projects_with_background.each do |project| %>
+            <% background = project.background %>
+            <%= "projectBgFading('#projects #project_#{project.id}', cols_and_rows_#{background.id});" %>
+        <% end %>
+    });
+</script>

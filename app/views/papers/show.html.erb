@@ -1,0 +1,35 @@
+<% title(@paper.title) %>
+
+<div>
+  <% @title = @paper.title %>
+
+  <h1><%= @paper.title %></h1>
+  <i>
+    <small><%= localize(@paper.created_at, :format => :long) %></small>
+  </i><br/>
+  <%= render :partial => 'layouts/share' %>
+  <p><%= raw @paper.short_description %></p>
+
+  <% if @paper.paper_images.size > 0 %>
+      <a href='<%= @paper.paper_images.first.image.url(:zoom) %>' class='cloud-zoom' id='zoom1'
+         rel="adjustX: 10, adjustY:-4">
+        <img src="<%= @paper.paper_images.first.image.url(:gallery) %>" alt='' title="Optional title display"/>
+      </a>
+      <% @paper.paper_images.each do |paper_image| %>
+          <a href='<%= paper_image.image.url(:zoom) %>' class='cloud-zoom-gallery' title='Thumbnail 1'
+             rel="useZoom: 'zoom1', smallImage: '<%= paper_image.image.url(:gallery) %>' ">
+            <img src="<%= paper_image.image.url(:preview) %>" alt="Thumbnail 1"/></a>
+      <% end %>
+  <% end %>
+
+  <%= raw @paper.description %>
+
+  <br/>
+  <%= render "layouts/fb_comments" %>
+
+  <% if signed_in? %>
+      <%= link_to t('actions.edit'), edit_paper_path(@paper) %> |
+      <%= link_to t('actions.destroy'), @paper, :confirm => t('actions.are_you_sure'), :method => :delete %> |
+  <% end %>
+  <%= link_to t('actions.back'), papers_path %>
+</div>

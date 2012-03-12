@@ -1,0 +1,92 @@
+<% @papers.first.index_images.each_with_index do |image, i| %>
+    <%= link_to(image_tag(image.image.url(:slider),
+                          :id => "paper_image_#{image.id}",
+                          :class => "paper_image counter#{i}",
+                          :top => image.top,
+                          :left => image.left,
+                          #:alt => image.name,
+                          :width => image.width,
+                          :angle => image.angle,
+                          :number => i), image, :remote => true) %>
+<% end %>
+
+<script type="text/javascript">
+    $(function () {
+        showProjects();
+
+        <% if signed_in? %>
+        draggableProjects();
+        <% end %>
+
+        $(window).resize(function () {
+            showProjects();
+        });
+    });
+
+    function showProjects() {
+        var counter = $('.paper_image').size();
+        viewPortWidth = $(window).width();
+        viewPortHeight = $(window).height() - 100;
+        optimalViewPortHeight = viewPortHeight / 800;
+
+        var i;
+        for (i = 0; i < counter; i++) {
+            var _this = $('.counter' + i);
+            //size
+//            var optima_height = _this.attr('optima_height');
+//            _this.css('height', optima_height * 0.8 * optimalViewPortHeight);
+
+            _this.css('left', _this.attr('left') * viewPortWidth);
+            _this.css('top', _this.attr('top') * viewPortHeight);
+
+            _this.css('-webkit-transform', 'rotate(' + _this.attr('angle') + ')');
+            _this.css('-moz-transform', 'rotate(' + _this.attr('angle') + ')');
+
+//            _this.css('filter', _this.attr('angle') * viewPortHeight);
+//            -webkit-transform: rotate(270deg);
+//            -moz-transform: rotate(270deg);
+//            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+            _this.delay(Math.random() * 1000 + 800).fadeTo(2500, 1);
+
+        }
+
+//    projectFading('.project_item');
+    }
+
+    function draggableProjects() {
+        $('.paper_image').draggable({
+            opacity:0.35,
+            stop:function () {
+                was_dragged = true;
+                updateImagePosition(
+                        parseFloat($('.ui-draggable-dragging').attr('id').replace('paper_image_', '')),
+                        parseFloat($('.ui-draggable-dragging').css('left')),
+                        parseFloat($('.ui-draggable-dragging').css('top'))
+                );
+            }
+        });
+    }
+
+    function updateImagePosition(id, left, top) {
+        var
+//    viewPortWidth = $(window).width() > 800 ? $(window).width() : 800,
+//    viewPortHeight = $(window).height() > 500 ? $(window).height() - $('#menu').height() : 500 - $('#menu').height();
+                viewPortWidth = $(window).width();
+        viewPortHeight = $(window).height() - 100;
+
+        left = left / viewPortWidth;
+        top = top / viewPortHeight;
+
+        $.ajax({
+            type:"GET",
+            url:"/paper_images/" + id + '/update_position',
+            data:{
+                left:left,
+                top:top
+            }
+        });
+    }
+
+
+</script>

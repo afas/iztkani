@@ -1,0 +1,8 @@
+<% if @cart.items.empty? %>
+    $('#cart').hide("explode", 300);
+//    $('#cart').hide("blind", { direction: "vertical" }, 500);
+<% else %>
+    $('#cart').html('<%= escape_javascript(render(:partial => 'cart', :object => @cart)) %>')
+<% end %>
+
+$('#current_item').effect("highlight", { color: "#ff8888"}, 1000);

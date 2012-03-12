@@ -1,0 +1,115 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+ru:
+  errors:
+    template:
+      header:
+        one: "%{model}: сохранение не удалось из-за %{count} ошибки"
+        few: "%{model}: сохранение не удалось из-за %{count} ошибок"
+        many: "%{model}: сохранение не удалось из-за %{count} ошибок"
+        other: "%{model}: сохранение не удалось из-за %{count} ошибки"
+
+  actions:
+    edit: "Обновить"
+    show: "Посмотреть"
+    new: "Cоздать %{model}"
+    destroy: "Удалить"
+    back: "назад"
+    are_you_sure: "Вы уверены?"
+    success:
+      create: "%{model} успешно создан."
+      update: "%{model} успешно обновлён."
+      destroy: "%{model} удалён."
+
+    edit_text: "Обновить текст"
+  helpers:
+    submit:
+      create: "Создать"
+      update: "Обновить"
+      submit: "Сохранить"
+
+  activerecord:
+    capitalize_models:
+      category: "Категория"
+      sub_category: "Подкатегория"
+      product: "Продукт"
+      paper: "Статья"
+      special_offer: "Предложение"
+      order: "Заказ"
+      user: "Администратор"
+      feedback: "Отзыв"
+    models:
+      category: "категорию"
+      sub_category: "подкатегорию"
+      product: "продукт"
+      paper: "статью"
+      special_offer: "предложение"
+    attributes:
+      category:
+        title: "Название"
+        description: "Описание"
+        image: "Картинка"
+      sub_category:
+        category_id: "Категория"
+        title: "Название"
+        description: "Описание"
+        image: "Картинка"
+      product:
+        name: "Название"
+        description: "Описание"
+        price: "Цена"
+        file: "Описание"
+        download_file: "скачать описание"
+        image: "Картинка"
+      paper:
+        title: "Заголовок"
+        short_description: "Краткое описание"
+        description: "Текст статьи"
+      static:
+        title: "Заголовок"
+        url_part: "Часть ссылки"
+        content_text: "Отображаемый текст"
+        file: "Файл"
+        file_link_title: "Название ссылки на файл"
+        image: "Картинка"
+      user:
+        username: "Логин"
+        password: "Пароль"
+        remember_me: "Запомни меня"
+        password_confirmation: "Пароль ещё раз"
+        email: "Email"
+        phone: "Телефон"
+      special_offer:
+        title: "Текст предложения"
+      order:
+        name: "Ваше имя"
+        phone: "Ваш контактный телефон"
+        complete: "Заказ обработан"
+
+        client_name: "Заказчик"
+        client_phone: "Телефон"
+        description: "Дополнительная информация"
+        total_price: "Итого"
+        email: "Ваш email"
+        address: "Адрес доставки"
+        client_email: "Email"
+      feedback:
+        name: "Имя"
+        phone: "Телефон"
+        email: "Email"
+        message: "Сообщение"
+  products:
+    index:
+      about_result: "Показано %{from}-%{to} элементов из %{max}"
+      page: "Страница"
+      no_products: "В данной подкатегории пока нет продуктов"
+    order: "заказать"
+  paginate:
+    next: "Следующая >"
+    prev: "< Предыдущая"
+  store:
+    cart: "Корзина"
+    total: "Итого"
+    order: "Оформить"
+    cancel: "Отмена"

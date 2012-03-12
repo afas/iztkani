@@ -1,0 +1,30 @@
+.b-new {
+	zoom: 1;
+}
+
+.b-most-list {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	behavior: url(javascripts/PIE.htc);
+}
+
+.rotated-title {
+	display: block !important;
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation = 3);
+}
+
+.b-most .rotated-title {
+	left: -39px;
+	top: 0;
+}
+
+.top-menu .ancestor-link cufon {
+	top: -5px;
+}
+
+.msie6 .top-menu .ancestor-link {
+	float: left;
+}
+
+.msie6 .top-menu .popover-col {
+	display: inline;
+}

@@ -1,0 +1,36 @@
+<% title(@category.title) %>
+
+<%= bread_crumbs %>
+
+<h1><%= @category.title %></h1>
+<% if signed_in? %>
+    <%= link_to t('actions.edit'), edit_category_path(@category) %> |
+    <%= link_to t('actions.back'), categories_path() %>
+<% end %>
+
+<p><%= raw @category.description %></p>
+<%#= render :partial => 'layouts/share' %>
+<%#= product_image %>
+
+<ul class="categories-list">
+  <% @sub_categories.each do |sub_category| %>
+      <li>
+        <%= image_tag sub_category.image.url(:list), :onClick => "window.location = '#{category_sub_category_products_path(@category, sub_category)}';" %>
+        <h2><%= link_to sub_category.title, category_sub_category_products_path(@category, sub_category) %></h2>
+
+        <p>
+          <%= raw sub_category.description %>
+        </p>
+        <% if signed_in? %>
+            <p><%= link_to t('actions.edit'), edit_category_sub_category_path(@category, sub_category) %>
+              <%= link_to t('actions.destroy'), [@category, sub_category], :confirm => t('actions.are_you_sure'), :method => :delete %></p>
+        <% end %>
+      </li>
+
+  <% end %>
+</ul>
+<br/>
+
+<% if signed_in? %>
+    <%= link_to t('actions.new', :model => t('activerecord.models.sub_category')), new_category_sub_category_path %>
+<% end %>

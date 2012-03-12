@@ -1,0 +1,56 @@
+<h1>Заказ №<%= @order.id %></h1>
+
+<p>
+  <b><%= t('activerecord.attributes.order.client_name') %>:</b>
+  <%= @order.name %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.order.client_phone') %>:</b>
+  <%= @order.phone %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.order.client_email') %>:</b>
+  <%= link_to @order.email, "mailto:#{@order.email}" %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.order.address') %>:</b>
+  <%= @order.address %>
+</p>
+
+<% if @order.description? %>
+  <p>
+    <b><%= t('activerecord.attributes.order.description') %>:</b><br/>
+    <%= @order.description %>
+  </p>
+<% end %>
+
+<br/>
+
+<table class="product_list">
+  <% @order.line_items.each do |line_item| %>
+      <tr>
+        <td class="left"><%= link_to line_item.product.name, [line_item.product.sub_category.category, line_item.product.sub_category, line_item.product] %></td>
+        <td><%= line_item.quantity %></td>
+        <td class="right"><%= product_price(line_item.total_price) %></td>
+      </tr>
+  <% end %>
+</table>
+
+<p>
+  <b><%= t('activerecord.attributes.order.total_price') %>:</b>
+  <%= product_price(@order.total_price) %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.order.complete') %>:</b>
+  <%= @order.complete ? 'Да' : 'Нет' %>
+</p>
+
+<br/>
+
+<%= link_to t('actions.edit'), edit_order_path(@order) %> |
+<%= link_to t('actions.destroy'), @order, :confirm => t('actions.are_you_sure'), :method => :delete %> |
+<%= link_to t('actions.back'), orders_path %>

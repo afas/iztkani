@@ -1,0 +1,6 @@
+<h1>Изменение подкатегории</h1>
+
+<%= render 'form' %>
+
+<%= link_to t('actions.show'), [@category, @sub_category] %> |
+<%= link_to t('actions.back'), category_sub_categories_path(@sub_category.category) %>

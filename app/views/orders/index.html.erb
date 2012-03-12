@@ -1,0 +1,24 @@
+<h1>История заказов</h1>
+
+<%= t('products.index.about_result', :from => @pfrom, :to => @pto, :max => @pmax) %>
+
+<table class="product_list">
+  <% @orders.each do |order| %>
+      <tr>
+        <td class="left"><%= order.id %></td>
+        <td><%= link_to order.name, order %></td>
+        <td><%= order.phone %></td>
+        <td><%= product_price(order.total_price) %></td>
+        <% color = order.complete ? 'green' : 'red' %>
+        <td style="background-color: <%= color %>"> </td>
+        <td><%= link_to t('actions.edit'), edit_order_path(order) %></td>
+        <td class="right"><%= link_to t('actions.destroy'), order, :confirm => t('actions.are_you_sure'), :method => :delete %></td>
+      </tr>
+  <% end %>
+</table>
+
+<span>
+  <%= will_paginate @products, :class => 'paginate',
+                    :next_label => t('paginate.next'),
+                    :previous_label => t('paginate.prev') %>
+</span>

@@ -1,0 +1,53 @@
+<% title(@sub_category.title) %>
+
+<%= bread_crumbs %>
+
+<h1><%= @sub_category.title %></h1>
+<p><%= raw @sub_category.description %></p>
+<% if signed_in? %>
+    <%= link_to t('actions.edit'), edit_category_sub_category_path(@category, @sub_category) %> |
+    <%= link_to t('actions.back'), category_sub_categories_path(@category) %>
+<% end %>
+
+
+
+<%#= product_image %>
+
+<% if @pmax == 0 %>
+    <p><%= t('products.index.no_products') %></p>
+<%# else %>
+    <%#= t('products.index.about_result', :from => @pfrom, :to => @pto, :max => @pmax) %>
+<% end %>
+
+<ul class="products-list">
+  <% @products.each do |product| %>
+      <li>
+        <%= image_tag product.image.url(:list), :onClick => "window.location = '#{category_sub_category_product_path(@sub_category.category, @sub_category, product)}';" %>
+        <h2><%= link_to product.name, [@sub_category.category, @sub_category, product] %></h2>
+
+        <p><%= product.description %></p>
+        <span><%= product_price(product.price) %></span>
+        <% order_link = link_to(t('products.order'), add_to_cart_path(:id => product.id), :remote => true) %>
+        <% if signed_in? %>
+            <p>
+              <%= raw order_link %>
+              <%= link_to t('actions.edit'), edit_category_sub_category_product_path(@category, @sub_category, product) %>
+              <%= link_to t('actions.destroy'), [@category, @sub_category, product], :confirm => t('actions.are_you_sure'), :method => :delete %>
+            </p>
+        <% else %>
+            <p><%= raw order_link %></p>
+        <% end %>
+      </li>
+  <% end %>
+</ul>
+
+<span>
+  <%= will_paginate @products, :class => 'paginate',
+                    :next_label => t('paginate.next'),
+                    :previous_label => t('paginate.prev') %>
+</span>
+
+<% if signed_in? %>
+    <br/>
+    <%= link_to t('actions.new', :model => t('activerecord.models.product')), new_category_sub_category_product_path(@category, @sub_category) %>
+<% end %>

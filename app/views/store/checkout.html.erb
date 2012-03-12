@@ -1,0 +1,15 @@
+<%= form_tag('/store/send_order') do |f| %>
+    <%= render 'layouts/error_messages', :target => @product %>
+
+  <div class="field">
+    <%= f.label :name, t('activerecord.attributes.order.name') %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, t('activerecord.attributes.order.phone') %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,32 @@
+<div class="cart-title"><%= t('store.cart') %></div>
+<div class="list">
+  <table class="cart_table">
+
+    <%= render :partial => 'store/cart_item', :collection => cart.items %>
+
+    <% if cart.items.size > 0 %>
+        <tr>
+          <th colspan="2" align="right"><%= t('store.total') %>:&nbsp;</th>
+          <th colspan="3">
+            <nobr><%= product_price(@cart.total_price) %></nobr>
+          </th>
+        </tr>
+    <% else %>
+        <tr>
+          <th colspan="5">
+            <nobr>Корзина пуста.</nobr>
+          </th>
+        </tr>
+    <% end %>
+  </table>
+</div>
+
+
+<% if cart.items.size > 0 %>
+    <div class="actions">
+      <%= link_to t('store.order'), new_order_path %>
+      <% if signed_in? %>
+          <%= link_to t('store.cancel'), empty_cart_path, :remote => true %>
+      <% end %>
+    </div>
+<% end %>

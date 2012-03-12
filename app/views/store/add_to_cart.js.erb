@@ -1,0 +1,6 @@
+$('#cart').html('<%= escape_javascript(render(:partial => 'cart', :object => @cart)) %>')
+
+if ($('#cart').css("display") != "block")
+    $('#cart').show("explode", 300);
+
+$('#current_item').effect("highlight", { color: "#ffcc33"}, 1000);

@@ -1,0 +1,30 @@
+<%= form_for(@static, :html => { :multipart => true }) do |f| %>
+    <%= render 'layouts/error_messages', :target => @static %>
+
+    <div class="field">
+      <%= f.label :title, t('activerecord.attributes.static.title') %><br/>
+      <%= f.text_field :title, :size => 52 %>
+    </div>
+    <div class="field">
+      <%= f.label :content_text, t('activerecord.attributes.static.content_text') %><br/>
+      <%= textile_editor :static, :content_text %>
+    </div>
+    <div class="field">
+      <%= f.label :image, t('activerecord.attributes.static.image') %><br/>
+      <%= f.file_field :image %>
+    </div>
+    <% if @static.has_a_file %>
+        <div class="field">
+          <%= f.label :file, t('activerecord.attributes.static.file') %><br/>
+          <%= f.file_field :file %>
+        </div>
+        <div class="field">
+          <%= f.label :file_link_title, t('activerecord.attributes.static.file_link_title') %><br/>
+          <%= f.text_field :file_link_title %>
+        </div>
+    <% end %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+<%= raw textile_editor_initialize(:framework => :jquery) %>

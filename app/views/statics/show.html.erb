@@ -1,0 +1,7 @@
+<% @title = @static.title %>
+
+<% unless @static.url_part == '' %>
+    <h1><%= @static.title %></h1>
+<% end %>
+
+<%= render 'content' %>

@@ -1,0 +1,2 @@
+module PaperImagesHelper
+end

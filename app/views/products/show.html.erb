@@ -1,0 +1,43 @@
+<% @title = @product.name %>
+
+<% title(@product.name) %>
+
+<%= bread_crumbs %>
+
+<% if @product.product_images.size > 0 %>
+    <% if @product.product_images.size > 0 %>
+        <a href='<%= @product.product_images.first.image.url(:zoom) %>' class='cloud-zoom' id='zoom1'
+           rel="adjustX: 10, adjustY:-4">
+          <img src="<%= @product.product_images.first.image.url(:gallery) %>" alt='' title="Optional title display"/>
+        </a>
+        <% @product.product_images.each do |product_image| %>
+            <a href='<%= product_image.image.url(:zoom) %>' class='cloud-zoom-gallery' title='Thumbnail 1'
+               rel="useZoom: 'zoom1', smallImage: '<%= product_image.image.url(:gallery) %>' ">
+              <img src="<%= product_image.image.url(:preview) %>" alt="Thumbnail 1"/></a>
+        <% end %>
+    <% end %>
+<% end %>
+
+<%= render :partial => 'layouts/share' %>
+<div class="product-order">
+  <%= button_to "ЗАКАЗАТЬ", add_to_cart_path(:id => @product.id), :remote => true %>
+</div>
+
+<div class="clear"></div>
+
+<p>
+  <b><%= t('activerecord.attributes.product.description') %>:</b>
+  <%= @product.description %>
+</p>
+
+<p>
+  <b><%= t('activerecord.attributes.product.price') %>:</b>
+  <%= product_price(@product.price) %>
+</p>
+
+<%= render "layouts/fb_comments" %>
+
+<% if signed_in? %>
+    <%= link_to t('actions.edit'), edit_category_sub_category_product_path(@category, @sub_category, @product) %> |
+<% end %>
+<%= link_to t('actions.back'), category_sub_category_products_path(@category, @sub_category) %>

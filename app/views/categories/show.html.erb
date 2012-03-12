@@ -1,0 +1,11 @@
+<% @title = @category.title %>
+
+<h1><%= @category.title %></h1>
+
+<%= render 'categories/list', :target => @sub_categories %>
+
+<br/>
+<% if signed_in? %>
+    <%= link_to 'Новая подкатегория', new_category_sub_category_path(@category) %> |
+<% end %>
+<%= link_to t('actions.back'), categories_path %>

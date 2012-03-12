@@ -1,0 +1,17 @@
+<div class="special-offers">
+  <div class="left-nav">
+    <ul>
+      <% @menu_categories.each_with_index do |category, i| %>
+          <li>
+            <%= link_to category.title, category_sub_categories_path(category) %>
+            <ul>
+              <% @menu_sub_categories[i].each do |sub_category| %>
+                  <li><%= link_to sub_category.title, category_sub_category_products_path(category, sub_category) %></li>
+              <% end %>
+            </ul>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+  <!--<div class="special-offers-head">Всяческие объявы</div>-->
+</div>

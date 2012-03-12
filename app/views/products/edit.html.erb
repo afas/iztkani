@@ -1,0 +1,6 @@
+<h1>Изменение продукта</h1>
+
+<%= render 'form' %>
+
+<%= link_to t('actions.show'), [@category, @sub_category, @product] %> |
+<%= link_to t('actions.back'), category_sub_category_products_path(@category, @sub_category) %>

@@ -1,0 +1,54 @@
+<%= form_for(@paper, :html => {:multipart => true}) do |f| %>
+    <%= render 'layouts/error_messages', :target => @paper %>
+
+    <div class="field">
+      <%= f.label :title, t('activerecord.attributes.paper.title') %>
+      <br/>
+      <%= f.text_field :title, :size => 52 %>
+    </div>
+    <div class="field">
+      <%= f.label :preview, t('activerecord.attributes.category.image') %><br/>
+      <%= f.file_field :preview %>
+    </div>
+    <div class="field">
+      <%= f.label :short_description, t('activerecord.attributes.paper.short_description') %>
+      <br/>
+      <%= f.text_area :short_description, :rows => 4 %>
+    </div>
+    <div class="field">
+      <%= f.label :description, t('activerecord.attributes.paper.description') %>
+      <br/>
+      <%= textile_editor :paper, :description %>
+    </div>
+    <div class="field">
+      <%= f.label 'На главную' %>
+      <br/>
+      <%= f.check_box :to_index %>
+    </div>
+    <div class="field images-list">
+      <%= f.label "Не менее 4-х фото для лукбука [580x400]" %>
+      <br/>
+      <% if !@paper.paper_images.nil? %>
+          <% @paper.paper_images.each do |paper_image| %>
+              <p id="paper_image_<%= paper_image.id %>">
+                <%= image_tag paper_image.image.url(:preview) %>
+                <!--<br/>-->
+                <%= link_to t('actions.destroy'),
+                            paper_image_path(:id => paper_image.id, :authenticity_token => form_authenticity_token),
+                            :confirm => t('actions.are_you_sure'), :method => :delete, :remote => true %>
+                <br/>
+                <%= f.label 'На главную' %>
+                <br/>
+                <%= check_box :paper_image, paper_image.to_index, :name => "to_index[#{paper_image.id}]", :checked => paper_image.to_index %>
+              </p>
+          <% end %>
+      <% end %>
+      <div class="clearfix"></div>
+      <div><%= f.file_field :paper_images, :multiple => true %></div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+<%= raw textile_editor_initialize(:framework => :jquery) %>
