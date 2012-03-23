@@ -1,3 +1,12 @@
+<%= hidden_field :paper_image, :width %>
+<%= hidden_field :paper_image, :angle %>
+<%= hidden_field :paper_image, :image_id %>
+
+<%= link_to "W+", "#", :onclick => "widthPlus()" %>
+<%= link_to "W-", "#", :onclick => "widthMinus()" %>
+<%= link_to "A+", "#", :onclick => "anglePlus()" %>
+<%= link_to "A-", "#", :onclick => "angleMinus()" %>
+
 <% @papers.first.index_images.each_with_index do |image, i| %>
     <%= link_to(image_tag(image.image.url(:slider),
                           :id => "paper_image_#{image.id}",
@@ -5,8 +14,9 @@
                           :top => image.top,
                           :left => image.left,
                           #:alt => image.name,
-                          :width => image.width,
+                          :optima_width => image.width,
                           :angle => image.angle,
+                          :image_id => image.id,
                           :number => i), image, :remote => true) %>
 <% end %>
 
@@ -27,31 +37,23 @@
         var counter = $('.paper_image').size();
         viewPortWidth = $(window).width();
         viewPortHeight = $(window).height() - 100;
-        optimalViewPortHeight = viewPortHeight / 800;
 
         var i;
         for (i = 0; i < counter; i++) {
             var _this = $('.counter' + i);
             //size
-//            var optima_height = _this.attr('optima_height');
-//            _this.css('height', optima_height * 0.8 * optimalViewPortHeight);
+            var width = _this.attr('optima_width');
+            _this.css('width', width * 0.0005 * viewPortWidth);
 
             _this.css('left', _this.attr('left') * viewPortWidth);
             _this.css('top', _this.attr('top') * viewPortHeight);
 
-            _this.css('-webkit-transform', 'rotate(' + _this.attr('angle') + ')');
-            _this.css('-moz-transform', 'rotate(' + _this.attr('angle') + ')');
-
-//            _this.css('filter', _this.attr('angle') * viewPortHeight);
-//            -webkit-transform: rotate(270deg);
-//            -moz-transform: rotate(270deg);
-//            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+            _this.css('-webkit-transform', 'rotate(' + _this.attr('angle') + 'deg)');
+            _this.css('-moz-transform', 'rotate(' + _this.attr('angle') + 'deg)');
+            _this.css('filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation=' + _this.attr('angle') + ')');
 
             _this.delay(Math.random() * 1000 + 800).fadeTo(2500, 1);
-
         }
-
-//    projectFading('.project_item');
     }
 
     function draggableProjects() {
@@ -63,16 +65,77 @@
                         parseFloat($('.ui-draggable-dragging').attr('id').replace('paper_image_', '')),
                         parseFloat($('.ui-draggable-dragging').css('left')),
                         parseFloat($('.ui-draggable-dragging').css('top'))
-                );
+                        );
+                $("#paper_image_width").val($(this).attr("optima_width"));
+                $("#paper_image_angle").val($(this).attr("angle"));
+                $("#paper_image_image_id").val($(this).attr('image_id'));
             }
+        }).click(function() {
+            $("#paper_image_width").val($(this).attr("optima_width"));
+            $("#paper_image_angle").val($(this).attr("angle"));
+            $("#paper_image_image_id").val($(this).attr('image_id'));
         });
+    }
+
+    function widthPlus() {
+        viewPortWidth = $(window).width();
+
+        var id = $("#paper_image_image_id").val();
+        var _image = $('#paper_image_' + id);
+        var width = parseInt(_image.attr('optima_width')) + 3;
+
+        _image.attr('optima_width', width);
+        $("#paper_image_width").val(width);
+        _image.css('width', width * 0.0005 * viewPortWidth);
+
+        updateImageAttributes(id, $("#paper_image_width").val(), $("#paper_image_angle").val())
+    }
+
+    function widthMinus() {
+        viewPortWidth = $(window).width();
+
+        var id = $("#paper_image_image_id").val();
+        var _image = $('#paper_image_' + id);
+        var width = parseInt(_image.attr('optima_width')) - 3;
+
+        _image.attr('optima_width', width);
+        $("#paper_image_width").val(width);
+        _image.css('width', width * 0.0005 * viewPortWidth);
+
+        updateImageAttributes(id, $("#paper_image_width").val(), $("#paper_image_angle").val())
+    }
+
+    function anglePlus() {
+        var id = $("#paper_image_image_id").val();
+        var _image = $('#paper_image_' + id);
+        var angle = parseInt(_image.attr('angle')) + 3;
+
+        _image.attr('angle', angle);
+        $("#paper_image_angle").val(angle);
+        _image.css('-webkit-transform', 'rotate(' + angle + 'deg)');
+        _image.css('-moz-transform', 'rotate(' + angle + 'deg)');
+        _image.css('filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation=' + angle + ')');
+
+        updateImageAttributes(id, $("#paper_image_width").val(), $("#paper_image_angle").val())
+    }
+
+    function angleMinus() {
+        var id = $("#paper_image_image_id").val();
+        var _image = $('#paper_image_' + id);
+        var angle = parseInt(_image.attr('angle')) - 3;
+
+        _image.attr('angle', angle);
+        $("#paper_image_angle").val(angle);
+        _image.css('-webkit-transform', 'rotate(' + angle + 'deg)');
+        _image.css('-moz-transform', 'rotate(' + angle + 'deg)');
+        _image.css('filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation=' + angle + ')');
+
+        updateImageAttributes(id, $("#paper_image_width").val(), $("#paper_image_angle").val())
     }
 
     function updateImagePosition(id, left, top) {
         var
-//    viewPortWidth = $(window).width() > 800 ? $(window).width() : 800,
-//    viewPortHeight = $(window).height() > 500 ? $(window).height() - $('#menu').height() : 500 - $('#menu').height();
-                viewPortWidth = $(window).width();
+        viewPortWidth = $(window).width();
         viewPortHeight = $(window).height() - 100;
 
         left = left / viewPortWidth;
@@ -84,6 +147,17 @@
             data:{
                 left:left,
                 top:top
+            }
+        });
+    }
+
+    function updateImageAttributes(id, width, angle) {
+        $.ajax({
+            type:"GET",
+            url:"/paper_images/" + id + '/update_attributes',
+            data:{
+                angle:angle,
+                width:width
             }
         });
     }

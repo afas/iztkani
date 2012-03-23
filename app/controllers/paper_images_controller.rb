@@ -20,4 +20,18 @@ class PaperImagesController < ApplicationController
     end
   end
 
+  def update_attributes
+    if signed_in?
+      paper_image = PaperImage.find(params[:id])
+      paper_image.update_attributes(
+          {:angle => params[:angle],
+           :width => params[:width]
+          })
+
+      render :text => 'ok'
+    else
+      render :text => 'fail'
+    end
+  end
+
 end

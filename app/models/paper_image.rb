@@ -2,7 +2,7 @@ class PaperImage < ActiveRecord::Base
   belongs_to :paper
   has_attached_file :image,
                     :styles => {
-                        :slider => '240x400#',
+                        :slider => '377x377>',
                         :preview => '90x140#',
                         :gallery => '635x440>',
                         :zoom => '1200x1200>'
