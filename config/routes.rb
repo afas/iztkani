@@ -38,6 +38,7 @@ Iztkani::Application.routes.draw do
   resources :paper_images do
     member do
       get :update_position
+      get :update_attributes
     end
   end
 
