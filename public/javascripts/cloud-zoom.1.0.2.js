@@ -374,11 +374,11 @@
     };
 
     $.fn.CloudZoom.defaults = {
-        zoomWidth: '121',
-        zoomHeight: '121',
-        position: 'onFocus',
-        tint: true,
-        tintOpacity: 0.1,
+        zoomWidth: 'auto',
+        zoomHeight: 'auto',
+        position: 'right',
+        tint: false,
+        tintOpacity: 0.5,
         lensOpacity: 0.5,
         softFocus: false,
         smoothMove: 3,

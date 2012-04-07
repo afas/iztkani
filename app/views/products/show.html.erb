@@ -6,7 +6,7 @@
 
 <% if @product.product_images.size > 0 %>
     <a href='<%= @product.product_images.first.image.url(:zoom) %>' class='cloud-zoom' id='zoom1'
-       rel="adjustX: 10, adjustY:-4">
+       rel="position: 'inside', showTitle: false, adjustX:-4, adjustY:-4">
       <img src="<%= @product.product_images.first.image.url(:gallery) %>" alt='' title="Optional title display"/>
     </a>
 
