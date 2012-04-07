@@ -15,11 +15,14 @@
          rel="adjustX: 10, adjustY:-4">
         <img src="<%= @paper.paper_images.first.image.url(:gallery) %>" alt='' title="Optional title display"/>
       </a>
-      <% @paper.paper_images.each do |paper_image| %>
-          <a href='<%= paper_image.image.url(:zoom) %>' class='cloud-zoom-gallery' title='Thumbnail 1'
-             rel="useZoom: 'zoom1', smallImage: '<%= paper_image.image.url(:gallery) %>' ">
-            <img src="<%= paper_image.image.url(:preview) %>" alt="Thumbnail 1"/></a>
-      <% end %>
+
+      <div class="prevs">
+        <% @paper.paper_images.each do |paper_image| %>
+            <a href='<%= paper_image.image.url(:zoom) %>' class='cloud-zoom-gallery' title='Thumbnail 1'
+               rel="useZoom: 'zoom1', smallImage: '<%= paper_image.image.url(:gallery) %>' ">
+              <img src="<%= paper_image.image.url(:preview) %>" alt="Thumbnail 1"/></a>
+        <% end %>
+      </div>
   <% end %>
 
   <%= raw @paper.description %>

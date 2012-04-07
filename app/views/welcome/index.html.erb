@@ -2,12 +2,7 @@
 <%= hidden_field :paper_image, :angle %>
 <%= hidden_field :paper_image, :image_id %>
 
-<%= link_to "W+", "#", :onclick => "widthPlus()" %>
-<%= link_to "W-", "#", :onclick => "widthMinus()" %>
-<%= link_to "A+", "#", :onclick => "anglePlus()" %>
-<%= link_to "A-", "#", :onclick => "angleMinus()" %>
-
-<% @papers.first.index_images.each_with_index do |image, i| %>
+<% @paper.index_images.each_with_index do |image, i| %>
     <%= link_to(image_tag(image.image.url(:slider),
                           :id => "paper_image_#{image.id}",
                           :class => "paper_image counter#{i}",
@@ -17,8 +12,10 @@
                           :optima_width => image.width,
                           :angle => image.angle,
                           :image_id => image.id,
-                          :number => i), image, :remote => true) %>
+                          :number => i), signed_in? ? "#" : @paper) %>
 <% end %>
+
+<%= image_tag "/images/nastya.gif", :class => "nastya", :onclick => "window.location='/'", :alt => "Мысли шире аке" %>
 
 <script type="text/javascript">
     $(function () {
@@ -65,16 +62,16 @@
                         parseFloat($('.ui-draggable-dragging').attr('id').replace('paper_image_', '')),
                         parseFloat($('.ui-draggable-dragging').css('left')),
                         parseFloat($('.ui-draggable-dragging').css('top'))
-                        );
+                );
                 $("#paper_image_width").val($(this).attr("optima_width"));
                 $("#paper_image_angle").val($(this).attr("angle"));
                 $("#paper_image_image_id").val($(this).attr('image_id'));
             }
-        }).click(function() {
-            $("#paper_image_width").val($(this).attr("optima_width"));
-            $("#paper_image_angle").val($(this).attr("angle"));
-            $("#paper_image_image_id").val($(this).attr('image_id'));
-        });
+        }).click(function () {
+                    $("#paper_image_width").val($(this).attr("optima_width"));
+                    $("#paper_image_angle").val($(this).attr("angle"));
+                    $("#paper_image_image_id").val($(this).attr('image_id'));
+                });
     }
 
     function widthPlus() {
@@ -135,7 +132,7 @@
 
     function updateImagePosition(id, left, top) {
         var
-        viewPortWidth = $(window).width();
+                viewPortWidth = $(window).width();
         viewPortHeight = $(window).height() - 100;
 
         left = left / viewPortWidth;
@@ -161,6 +158,4 @@
             }
         });
     }
-
-
 </script>

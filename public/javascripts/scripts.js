@@ -34,33 +34,29 @@ $(document).ready(function() {
         });
     }
 
-    setWrapperMargin();
-
-    $(window).resize(function() {
-        setWrapperMargin();
-    });
-
-//    $(function (){
-//        $(".inner-content").css("top", $(".inner-content").height() * 0.016467066);
-//    })
+//    setWrapperMargin();
 //
+//    $(window).resize(function() {
+//        setWrapperMargin();
+//    });
+
 });
 
-function setWrapperMargin() {
-    if ($(".rm_wrapper").length > 0) {
-        var wrapperMargin = ($(window).height() - 106 - 390 - 45) / 2;
-
-        if (wrapperMargin < 25) {
-            wrapperMargin = 25;
-        }
-        $(".body").css("margin", wrapperMargin + "px auto");
-    }
-
-    if ($(window).width() / $(window).height() < 1.1)
-        $('.bg_image').hide();
-    else
-        $('.bg_image').show();
-}
+//function setWrapperMargin() {
+//    if ($(".rm_wrapper").length > 0) {
+//        var wrapperMargin = ($(window).height() - 106 - 390 - 45) / 2;
+//
+//        if (wrapperMargin < 25) {
+//            wrapperMargin = 25;
+//        }
+//        $(".body").css("margin", wrapperMargin + "px auto");
+//    }
+//
+//    if ($(window).width() / $(window).height() < 1.1)
+//        $('.bg_image').hide();
+//    else
+//        $('.bg_image').show();
+//}
 
 function cartHideShow() {
     $("#cart").show("explode", 300);

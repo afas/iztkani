@@ -1,19 +1,11 @@
 <div id="fb-root"></div>
-<script>
-window.fbAsyncInit = function() {
- FB.init({
-  appId: "140039996075333",
-  xfbml: true,
-  cookie: true,
-  status: true
- });
-};
-(function() {
- var e = document.createElement('script'); e.async = true;
- e.src = document.location.protocol + '//connect.facebook.net/ru_RU/all.js';
- document.getElementById('fb-root').appendChild(e);
-}());
-</script>
-<fb:comments></fb:comments>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=282072331870664";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
-<br/>
+<div class="fb-comments" data-href="<%= request.url %>" data-num-posts="3" data-width="635"></div>

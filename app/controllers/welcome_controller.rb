@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
   def index
-    @papers = Paper.where("to_index = ?", true).order("id desc").limit(8)
+    @paper = Paper.unscoped.where("to_index = ?", true).order("random()").first
     #@paper_images = Paper.index_images
     render :layout => 'index'
   end

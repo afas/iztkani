@@ -20,3 +20,7 @@
       <br/>
     </div>
 <% end %>
+
+<span>
+  <%= will_paginate @papers, :class => 'paginate', :next_label => t('paginate.next'), :previous_label => t('paginate.prev') %>
+</span>

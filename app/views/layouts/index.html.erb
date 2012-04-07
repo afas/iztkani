@@ -38,6 +38,11 @@
         <div class="logo"><%= link_to image_tag("/images/logo.png"), "/" %></div>
         <div class="top-links">
           <% if signed_in? %>
+              <%= link_to "W+", "#", :onclick => "widthPlus()" %> |
+              <%= link_to "W-", "#", :onclick => "widthMinus()" %> |
+              <%= link_to "A+", "#", :onclick => "anglePlus()" %> |
+              <%= link_to "A-", "#", :onclick => "angleMinus()" %> |
+
               <%= link_to 'Заказы', orders_path %> |
               <%= link_to 'Изменить email и пароль', users_edit_path %> |
               <%= link_to 'Выход', '/sign_out' %>
@@ -70,9 +75,6 @@
   <!--</div>-->
   <div class="copyright">
     &copy; 2010-<%= Time.now.strftime('%Y') %> <%= link_to raw('ИЗЪ ТКАНИ'), root_url %>
-  </div>
-  <div class="copyleft">
-    Сделано въ <%= link_to raw('Black Sheep'), 'http://black-sheep.ru', :target => '_blank' %>
   </div>
   <div class="clear"></div>
 </div>

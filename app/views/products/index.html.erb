@@ -42,9 +42,7 @@
 </ul>
 
 <span>
-  <%= will_paginate @products, :class => 'paginate',
-                    :next_label => t('paginate.next'),
-                    :previous_label => t('paginate.prev') %>
+  <%= will_paginate @products, :class => 'paginate', :next_label => t('paginate.next'), :previous_label => t('paginate.prev') %>
 </span>
 
 <% if signed_in? %>

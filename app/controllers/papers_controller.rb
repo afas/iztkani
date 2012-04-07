@@ -3,7 +3,7 @@ class PapersController < ApplicationController
   # GET /papers.xml
   def index
     page = params[:page] ? params[:page].to_i : 1
-    @papers = Paper.paginate(:page => page, :per_page => Paper.per_page)
+    @papers = Paper.order("id DESC").paginate(:page => page, :per_page => Paper.per_page)
     @static = Static.find_by_url_part('papers')
 
     respond_to do |format|

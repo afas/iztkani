@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   cattr_reader :per_page
-  @@per_page = 20
+  @@per_page = 8
 
   belongs_to :sub_category
   has_many :product_images
@@ -8,7 +8,6 @@ class Product < ActiveRecord::Base
   has_attached_file :image,
                     :styles => {
                         :list => '121x121#'
-                        #:default => '635x400>',
                     },
                     :url => "/products/:id/:basename_:style.:extension"
   has_attached_file :file, :url => "/products/:id/:basename.:extension"

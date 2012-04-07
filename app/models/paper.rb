@@ -1,5 +1,5 @@
 class Paper < ActiveRecord::Base
-  @@per_page = 3
+  @@per_page = 5
   cattr_reader :per_page
 
   has_attached_file :preview,
@@ -13,8 +13,6 @@ class Paper < ActiveRecord::Base
   validates :title, :presence => true
   validates :short_description, :presence => true
   validates :description, :presence => true
-
-  default_scope order('id DESC')
 
   has_many :paper_images
 
