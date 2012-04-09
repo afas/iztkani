@@ -1,6 +1,9 @@
 class SubCategory < ActiveRecord::Base
   before_destroy :delete_products
 
+  cattr_reader :per_page
+  @@per_page = 5
+
   belongs_to :category
   has_many :products
 

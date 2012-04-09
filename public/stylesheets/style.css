@@ -165,7 +165,7 @@ header a:hover {
 .top-menu {
     /*background: none repeat scroll 0 0 rgba(230, 230, 230, 0.6);*/
     background-image: url("/svg/main-menu.svg");
-    background-size: 100% 100%;
+    background-size: cover;
     height: 55px;
     position: relative;
     z-index: 500;
@@ -204,7 +204,7 @@ header a:hover {
 .top-menu .popover {
     background-image: url("/svg/sub-menu.svg");
     /*background-position: 0 10px;*/
-    background-size: 100% 100%;
+    background-size: cover;
     display: none;
     position: absolute;
     min-width: 100px;
@@ -296,7 +296,7 @@ input[type="password"] {
     position: relative;
     width: 205px;
     background-image: url("/svg/left-menu.svg");
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .special-offers .special-offer {
@@ -310,7 +310,7 @@ input[type="password"] {
 #cart {
     min-height: 80px;
     background-image: url("/svg/cart.svg");
-    background-size: 100% 100%;
+    background-size: cover;
     margin-bottom: 20px;
     padding-left: 10px;
     width: 270px;
@@ -454,7 +454,7 @@ table.product_list td.right {
     /*background: none repeat scroll 0 0 rgba(230, 230, 230, 0.6);*/
     border-radius: 5px;
     background-image: url("/svg/inner-content.svg");
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .inner-content div p {
