@@ -3,7 +3,7 @@
 class OrderMailer < ActionMailer::Base
   helper :products
 
-  default :from => 'anton@black-sheep.ru'
+  default :from => 'izztkani@gmail.com'
 
   def new_order(order)
     @order = order
