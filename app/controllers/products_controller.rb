@@ -97,7 +97,7 @@ class ProductsController < ApplicationController
   private
   def find_categories
     @sub_category = SubCategory.find(params[:sub_category_id])
-    @category = Category.find(params[:sub_category_id]) if params[:category_id]
+    @category = Category.find(params[:category_id]) if params[:category_id]
     @category = @sub_category.category if params[:category_id].nil?
   end
 end
