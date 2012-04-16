@@ -2,6 +2,7 @@ class SubCategory < ActiveRecord::Base
   before_destroy :delete_products
 
   has_many :products
+  belongs_to :category
 
   has_attached_file :image,
                     :styles => {
